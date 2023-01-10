@@ -33,7 +33,7 @@ Server contains the following users which can be accessed from client app:
 | test?user | 1234     |
 
 
-##TODO
+## TODO
 1. create extensible form validation mechanism
 2. install and launch project with Docker
 3. enchance design
