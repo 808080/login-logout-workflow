@@ -1,10 +1,10 @@
 # Login/Logout Workflow
 
-This project consists of client and server. 
+This project consists of client and server. Requires node.js installed.
 
 ## Client
 
-To run client use following commands from the corresponding directory:
+To run client use following commands from the corresponding directory in terminal:
 
 ```
 npm install
