@@ -1,0 +1,48 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #17125a;
+  background-image: radial-gradient(at 92% 96%, hsla(268, 37%, 46%, 0.75) 0px, transparent 50%),
+    radial-gradient(at 7% 0%, hsla(268, 37%, 46%, 0.70) 0px, transparent 50%),
+    url('./assets/logo.png'),
+    url('./assets/bg.png');
+  background-repeat: no-repeat;
+  background-position: top left, bottom right;
+  background-size: contain;
+}
+
+@media screen and (min-width: 580px) {
+  body {
+    background-size: auto;
+  }
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+}
+
+.spacing {
+  margin: 18px 0;
+}
+
+.spacing-inline {
+  margin: 0 10px;
+}
+
+.mb {
+  margin-bottom: 20px !important;
+}
+
+.content {
+  position: relative;
+  overflow: hidden;
+  background-color: #f2eefbeb !important;
+}
