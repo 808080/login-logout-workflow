@@ -6,16 +6,20 @@ This project consists of client and server.
 
 To run client use following commands from the corresponding directory:
 
+```
 npm install
 npm run dev
+```
 
 ## Server
 
 Building and running server:
 
+```
 npm install
 npm run build
 npm start
+```
 
 ## Internal users
 
