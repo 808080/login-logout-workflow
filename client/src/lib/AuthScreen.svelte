@@ -5,7 +5,7 @@
   import { HTTPmethods, type User } from "../utils/types";
   import Store from "../utils/userStore";
   import view from "../utils/view";
-  import WelcomScreen from "./WelcomScreen.svelte";
+  import WelcomScreen from "./WelcomeScreen.svelte";
 
   const handleClick = async () => {
     loader.set(true);

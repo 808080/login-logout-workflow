@@ -17,3 +17,12 @@ export type ResponseMessage = {
   error: string | null;
   username?: string;
 };
+
+export type Validator = (val: string) => { isValid: boolean, message: string };
+export type Field = {
+  value: string;
+  isValid: boolean;
+  touched: boolean;
+  errors: string[];
+  readonly validators: Validator[];
+};

@@ -3,11 +3,11 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
+  min-width: 320px;
 }
 
 body {
   margin: 0;
-  min-width: 320px;
   background: #17125a;
   background-image: radial-gradient(at 92% 96%, hsla(268, 37%, 46%, 0.75) 0px, transparent 50%),
     radial-gradient(at 7% 0%, hsla(268, 37%, 46%, 0.70) 0px, transparent 50%),

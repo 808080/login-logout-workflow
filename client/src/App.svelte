@@ -3,7 +3,7 @@
   import CircularProgress from "@smui/circular-progress";
   import type { SvelteComponent } from "svelte";
   import AuthScreen from "./lib/AuthScreen.svelte";
-  import WelcomScreen from "./lib/WelcomScreen.svelte";
+  import WelcomScreen from "./lib/WelcomeScreen.svelte";
   import Store from "./utils/userStore";
   import view from "./utils/view";
   import loader from "./utils/loader";

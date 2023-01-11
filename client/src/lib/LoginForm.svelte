@@ -8,39 +8,44 @@
   import Store from "../utils/userStore";
   import view from "../utils/view";
   import AuthScreen from "./AuthScreen.svelte";
-  import WelcomScreen from "./WelcomScreen.svelte";
+  import WelcomeScreen from "./WelcomeScreen.svelte";
+  import {
+    buildForm,
+    hasNoInvalidChars,
+    isNotEmpty,
+  } from "../utils/validation";
+  import HelperText from "@smui/textfield/helper-text";
 
   let open = false;
   let error = "";
-  let username = "";
-  let password = "";
-  let isValid = true;
+  let submitted = false;
 
-  const handleBlur = () => {
-    const reg = new RegExp(/^[^\\/,.^]+$/, "gm");
+  const loginForm = buildForm([
+    {
+      name: "username",
+      validation: [isNotEmpty, hasNoInvalidChars],
+    },
+    {
+      name: "password",
+      validation: [isNotEmpty, hasNoInvalidChars],
+    },
+  ]);
 
-    if (!username.match(reg)) {
-      isValid = false;
-      return;
-    }
-
-    if (!password.match(reg)) {
-      isValid = false;
-      return;
-    }
-
-    isValid = true;
+  const checkField = () => {
+    loginForm.validateForm();
   };
 
   const handleSubmit = async () => {
+    submitted = true;
+
     const values = {
-      username,
-      password,
+      username: $loginForm.username.value,
+      password: $loginForm.password.value,
     };
 
-    if (!isValid) {
+    if (!loginForm.validateForm()) {
       open = true;
-      error = "Fields must not contain ,.^\\/";
+      error = "Some fields require revision";
       return;
     }
 
@@ -57,35 +62,47 @@
     }
 
     loader.set(false);
-    return;
   };
 
-  const handleCancel = () => view.set(WelcomScreen);
+  const handleCancel = () => view.set(WelcomeScreen);
 </script>
 
 <form class="spacing" on:submit|preventDefault={handleSubmit}>
   <Textfield
     type="text"
     name="username"
-    class="mb"
     style="width: 100%;"
     variant="outlined"
-    bind:value={username}
-    on:blur={handleBlur}
+    bind:value={$loginForm.username.value}
+    on:blur={checkField}
+    on:input={checkField}
     label="User name"
-    required
-  />
+    on:focus={() => ($loginForm.username.touched = true)}
+    invalid={!$loginForm.username.isValid &&
+      ($loginForm.username.touched || submitted)}
+  >
+    <HelperText class="mb" validationMsg slot="helper">
+      {$loginForm.username.errors}
+    </HelperText>
+  </Textfield>
+
   <Textfield
     type="password"
     name="password"
-    class="mb"
     style="width: 100%;"
     variant="outlined"
-    bind:value={password}
-    on:blur={handleBlur}
+    bind:value={$loginForm.password.value}
+    on:blur={checkField}
+    on:input={checkField}
     label="Password"
-    required
-  />
+    on:focus={() => ($loginForm.password.touched = true)}
+    invalid={!$loginForm.password.isValid &&
+      ($loginForm.password.touched || submitted)}
+  >
+    <HelperText class="mb" validationMsg slot="helper">
+      {$loginForm.password.errors}
+    </HelperText>
+  </Textfield>
 
   <Button
     class="spacing-inline"

@@ -1,6 +1,6 @@
 # Login/Logout Workflow
 
-This project consists of client and server. Requires node.js installed.
+This project consists of client and server. Requires npm and node.js installed.
 
 ## Client
 
