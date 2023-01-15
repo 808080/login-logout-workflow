@@ -2,6 +2,9 @@ import cors from '@fastify/cors';
 import Fastify, { FastifyInstance } from 'fastify';
 import delay from './delay';
 import users, { User } from './users';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 interface ResponseMessage {
   success: boolean;
@@ -10,7 +13,8 @@ interface ResponseMessage {
 };
 
 const server: FastifyInstance = Fastify({});
-const port = 3000;
+const port = +process.env.PORT || 3000;
+const host = process.env.HOST || '0.0.0.0';
 
 server.register(cors);
 
@@ -44,7 +48,8 @@ server.addHook('onRequest', async () => {
 
 const start = async () => {
   try {
-    await server.listen({ port });
+    const ip = await server.listen({ port, host });
+    console.log(`Listening to ${ip} on port ${port}`);
   } catch (err) {
     server.log.error(err);
     process.exit(1);

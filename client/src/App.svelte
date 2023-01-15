@@ -3,7 +3,7 @@
   import CircularProgress from "@smui/circular-progress";
   import type { SvelteComponent } from "svelte";
   import AuthScreen from "./lib/AuthScreen.svelte";
-  import WelcomScreen from "./lib/WelcomeScreen.svelte";
+  import WelcomeScreen from "./lib/WelcomeScreen.svelte";
   import Store from "./utils/userStore";
   import view from "./utils/view";
   import loader from "./utils/loader";
@@ -17,7 +17,7 @@
     View = v;
   });
 
-  View = $Store.username ? AuthScreen : WelcomScreen;
+  View = $Store.username ? AuthScreen : WelcomeScreen;
 </script>
 
 <main>
