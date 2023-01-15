@@ -1,6 +1,6 @@
 # Login/Logout Workflow
 
-This project consists of client and server. Requires npm and node.js installed.
+This project consists of client and server. Requires npm, node.js and Docker installed.
 
 ## Client
 
@@ -19,6 +19,14 @@ Building and running server:
 npm install
 npm run build
 npm start
+```
+
+## Docker
+
+Alternatively can be built and run with Docker from the root directory:
+
+```
+docker-compose up
 ```
 
 ## Internal users
