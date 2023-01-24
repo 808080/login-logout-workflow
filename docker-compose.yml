@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  client:
+    container_name: login-workflow-client
+    image: login-workflow/client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: deploy
+    depends_on:
+      - server
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+  server:
+    container_name: login-workflow-server
+    image: login-workflow/server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+
+networks:
+  app-network:
+    driver: bridge

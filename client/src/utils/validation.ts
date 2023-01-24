@@ -19,7 +19,7 @@ export const validateField = (val: string, validators: Validator[]) => {
   const isValid = validators.every(validator => {
     const v = validator(val);
     if (!v.isValid) errors.push(v.message);
-    return v.isValid
+    return v.isValid;
   });
 
   return {
@@ -28,17 +28,18 @@ export const validateField = (val: string, validators: Validator[]) => {
   };
 };
 
-export const buildForm = (fields: { name: string, validation: Validator[] }[]) => {
-  const form = fields.reduce((res: { [key: string]: Field }, field) => {
-    res[field.name] = {
+export const buildForm = <T extends string>(fields: { [key in T]: Validator[] }) => {
+  const form = {} as { [key in T]: Field };
+
+  for (const field in fields) {
+    form[field] = {
       value: '',
       isValid: true,
       touched: false,
-      validators: field.validation,
+      validators: fields[field],
       errors: []
     };
-    return res;
-  }, {});
+  }
 
   const { subscribe, set, update } = writable(form);
 

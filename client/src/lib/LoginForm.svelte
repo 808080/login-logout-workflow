@@ -20,28 +20,13 @@
   let error = "";
   let submitted = false;
 
-  const loginForm = buildForm([
-    {
-      name: "username",
-      validation: [isNotEmpty, hasNoInvalidChars],
-    },
-    {
-      name: "password",
-      validation: [isNotEmpty, hasNoInvalidChars],
-    },
-  ]);
-
-  const checkField = () => {
-    loginForm.validateForm();
-  };
+  const loginForm = buildForm<"username" | "password">({
+    username: [isNotEmpty, hasNoInvalidChars],
+    password: [isNotEmpty, hasNoInvalidChars],
+  });
 
   const handleSubmit = async () => {
     submitted = true;
-
-    const values = {
-      username: $loginForm.username.value,
-      password: $loginForm.password.value,
-    };
 
     if (!loginForm.validateForm()) {
       open = true;
@@ -51,7 +36,10 @@
 
     loader.set(true);
 
-    const res = await Request<User>(HTTPmethods.POST, "/login", values);
+    const res = await Request<User>(HTTPmethods.POST, "/login", {
+      username: $loginForm.username.value,
+      password: $loginForm.password.value,
+    });
 
     if (res.success) {
       Store.set({ username: res.username });
@@ -74,8 +62,8 @@
     style="width: 100%;"
     variant="outlined"
     bind:value={$loginForm.username.value}
-    on:blur={checkField}
-    on:input={checkField}
+    on:blur={loginForm.validateForm}
+    on:input={loginForm.validateForm}
     label="User name"
     on:focus={() => ($loginForm.username.touched = true)}
     invalid={!$loginForm.username.isValid &&
@@ -92,8 +80,8 @@
     style="width: 100%;"
     variant="outlined"
     bind:value={$loginForm.password.value}
-    on:blur={checkField}
-    on:input={checkField}
+    on:blur={loginForm.validateForm}
+    on:input={loginForm.validateForm}
     label="Password"
     on:focus={() => ($loginForm.password.touched = true)}
     invalid={!$loginForm.password.isValid &&
